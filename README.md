@@ -4,7 +4,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-Bonanza LTER
+Data and vignettes from the Bonanza Creek Long-Term Ecological Research program.
 
 ## Installation
 
