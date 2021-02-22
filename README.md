@@ -4,7 +4,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of bonanza is to ...
+Bonanza LTER
 
 ## Installation
 
