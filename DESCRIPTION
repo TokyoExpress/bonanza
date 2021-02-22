@@ -1,11 +1,10 @@
 Package: bonanza
 Type: Package
 Title: Bonanza Creek LTER
-Version: 4.0.3
+Version: 1.0.1
 Author: NCEAS / Samuel Guo
-Maintainer: Samuel Guo
+Maintainer: Samuel Guo <samuelzguo@gmail.com>
 Description: Bonanza Time
-    Bonanza Creek Time
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
