@@ -1,0 +1,28 @@
+---
+title: "bnz_seedfall_vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{bnz_seedfall_vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, fig.width=7}
+library(bonanza)
+library(tidyverse)
+
+seedfall <- bonanza::bnz_seedfall %>%
+          filter(TrayNo == 1) %>%
+          filter(Site == "FP5A")
+
+seedfall$`#Seeds` <- as.numeric(seedfall$`#Seeds`)
+
+ggplot(data = seedfall, aes(x = `Seed Year`, y = `#Seeds`, group=`Species`, color=`Species`)) + geom_line()
+```

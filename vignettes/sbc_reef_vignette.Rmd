@@ -1,0 +1,29 @@
+---
+title: "sbc_reef_vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{sbc_reef_vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, fig.width=7}
+library(bonanza)
+library(tidyverse)
+
+reef <- bonanza::sbc_reef
+
+ggplot(reef, aes(x = TRANSECT)) +
+  geom_histogram(aes(color = SITE, fill = SITE),
+                 position = "identity", bins = 50, alpha=I(0.3)) +
+  scale_color_manual(values = c("#00AFBB", "#E7B800", "#FADB7D", "#E38566", "#F68FFF")) +
+  scale_fill_manual(values = c("#00AFBB", "#E7B800", "#FADB7D", "#E38566", "#F68FFF")) +
+  ggtitle("Histogram of Size(mm) by Site")
+```

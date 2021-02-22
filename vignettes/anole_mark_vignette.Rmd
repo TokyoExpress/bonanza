@@ -1,0 +1,25 @@
+---
+title: "anole_mark_vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{anole_mark_vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, fig.width=7}
+library(bonanza)
+library(tidyverse)
+
+verde <- bonanza::anole_mark %>%
+          filter(LOCATION == "El Verde")
+
+ggplot(data = verde, aes(x = HEIGHT, y = `DISTANCE FROM CENTERLINE`)) + geom_point()
+```
