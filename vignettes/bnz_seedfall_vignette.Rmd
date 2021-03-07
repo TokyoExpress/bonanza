@@ -1,5 +1,5 @@
 ---
-title: "bnz_seedfall_vignette"
+title: "bnz_seedfall_vignette (Bonanza Creek LTER)"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{bnz_seedfall_vignette}

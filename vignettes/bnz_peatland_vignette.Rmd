@@ -1,0 +1,32 @@
+---
+title: "bnz_peatland_vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{bnz_peatland_vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, fig.width=10}
+library(bonanza)
+library(tidyverse)
+
+bog <- bonanza::bnz_peatland %>%
+          filter(Site == "Bog")
+
+fen <- bonanza::bnz_peatland %>%
+          filter(Site == "Fen")
+
+ggplot(data = bog, aes(x = Name, y = Andpol)) + geom_bar(stat="identity")
+
+ggplot(data = bog, aes(x = Name, y = Caraqu)) + geom_bar(stat="identity")
+
+ggplot(data = fen, aes(x = Name, y = Carath)) + geom_bar(stat="identity")
+```

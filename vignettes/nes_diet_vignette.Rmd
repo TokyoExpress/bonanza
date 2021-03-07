@@ -1,0 +1,84 @@
+---
+title: "nes_diet: Diet Composition for Small Pelagic Fishes"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{nes_diet_vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Loading Data
+
+```{r setup}
+library(bonanza)
+library(tidyverse)
+
+diet <- na.omit(bonanza::nes_diet) %>%
+  filter(preyCount < 50000)
+```
+
+## Initial Plots
+
+Creating scatterplots of preyCount versus two predictors of interest:
+
+```{r plots, fig.width=7, fig.height=5}
+
+ggplot(data = diet, aes(x = forkLength, y = preyCount)) +
+ 		 geom_point()
+
+ggplot(data = diet, aes(x = average_depth, y = preyCount)) +
+ 		 geom_point()
+```
+
+## Grouped Histograms
+
+Extracting data concerning a specific prey species:
+
+```{r cor}
+
+sub <- diet %>%
+  filter(scientificName_preyTaxon == "Centropages")
+
+```
+
+Creating histogram of preyCount, grouped by predator species:
+
+```{r plot2, fig.width=7, fig.height=5}
+ggplot(sub, aes(x = preyCount)) +
+  geom_histogram(aes(color = vernacularName, fill = vernacularName),
+                 position = "identity", bins = 10, alpha=I(0.3)) +
+  scale_color_manual(values = c("#00AFBB", "#E7B800", "#FADB7D", "#E38566", "#F68FFF")) +
+  scale_fill_manual(values = c("#00AFBB", "#E7B800", "#FADB7D", "#E38566", "#F68FFF")) +
+  ggtitle("Histogram of Size(mm) by Site")
+
+```
+Choosing another species:
+
+```{r plot3, fig.width=7, fig.height=5}
+
+sub <- diet %>%
+  filter(scientificName_preyTaxon == "Calanoida")
+
+ggplot(sub, aes(x = preyCount)) +
+  geom_histogram(aes(color = vernacularName, fill = vernacularName),
+                 position = "identity", bins = 10, alpha=I(0.3)) +
+  scale_color_manual(values = c("#00AFBB", "#E7B800", "#FADB7D", "#E38566", "#F68FFF")) +
+  scale_fill_manual(values = c("#00AFBB", "#E7B800", "#FADB7D", "#E38566", "#F68FFF")) +
+  ggtitle("Histogram of Size(mm) by Site")
+
+```
+
+### Citation
+
+Suca, J.J. 2019. Diet Composition for Small Pelagic Fishes across the Northeast U.S. Continental Shelf from 2013-2015 ver 2. Environmental Data Initiative. https://doi.org/10.6073/pasta/4c1ef62808519d46b14a8493616e1580 (Accessed 2021-03-07).
+
+### Raw Data Processing
+
+See "data-raw/nes_diet.R".
