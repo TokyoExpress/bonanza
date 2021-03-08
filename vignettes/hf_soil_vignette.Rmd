@@ -1,0 +1,48 @@
+---
+title: "hf_soil: Soil Carbon and Nitrogen at the Harvard Farm at Harvard Forest"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{hf_soil_vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+### Load data, change plot number to factor:
+```{r setup}
+library(bonanza)
+library(tidyverse)
+
+soil <- bonanza::hf_soil
+soil$plot.num <- as.factor(soil$plot.num)
+
+```
+
+
+### Plot nitrogen and carbon levels, grouped by depth and plot number:
+```{r plots, fig.width=7}
+
+ggplot(soil, aes(fill=depth, y=n.per, x=plot.num)) + 
+    geom_bar(position="dodge", stat="identity") + 
+    labs(y = "Percentage of Total Organic Nitrogen", x = "Plot Number")
+
+ggplot(soil, aes(fill=depth, y=c.per, x=plot.num)) + 
+    geom_bar(position="dodge", stat="identity") + 
+    labs(y = "Percentage of Total Organic Carbon", x = "Plot Number")
+```
+
+### Citation
+
+Frey, S. 2020. Soil Carbon and Nitrogen at the Harvard Farm at Harvard Forest since 2015 ver 1. Environmental Data Initiative. https://doi.org/10.6073/pasta/091fd0683fe27b1dcd17fddfce91f2dc (Accessed 2021-03-08).
+
+
+### How we processed the raw data
+
+See "hf_soil.R".

@@ -1,5 +1,5 @@
 ---
-title: "bnz_seedfall_vignette (Bonanza Creek LTER)"
+title: "bnz_seedfall: Yearly Seedfall Summary from 1985 to Present in the Bonanza Creek Experimental Forest"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{bnz_seedfall_vignette}
@@ -14,15 +14,44 @@ knitr::opts_chunk$set(
 )
 ```
 
+## Loading Data and Initial Plot
 ```{r setup, fig.width=7}
 library(bonanza)
 library(tidyverse)
 
 seedfall <- bonanza::bnz_seedfall %>%
+          filter(!is.null(`#Seeds`))
+
+seedfall$`#Seeds` <- as.numeric(seedfall$`#Seeds`)
+seedfall$`#Seeds /m2` <- as.numeric(seedfall$`#Seeds /m2`)
+
+ggplot(seedfall, aes(x = `#Seeds /m2`)) +
+  geom_histogram(bins = 10)
+
+```
+
+## Extracting time series for specific sites:
+
+```{r plots, fig.width=7}
+fp5a <- seedfall %>%
           filter(TrayNo == 1) %>%
           filter(Site == "FP5A")
 
-seedfall$`#Seeds` <- as.numeric(seedfall$`#Seeds`)
+ggplot(data = fp5a, aes(x = `Seed Year`, y = `#Seeds`, group=`Species`, color=`Species`)) + geom_line()
 
-ggplot(data = seedfall, aes(x = `Seed Year`, y = `#Seeds`, group=`Species`, color=`Species`)) + geom_line()
+
+up1a <- seedfall %>%
+          filter(TrayNo == 1) %>%
+          filter(Site == "UP1A")
+
+ggplot(data = up1a, aes(x = `Seed Year`, y = `#Seeds`, group=`Species`, color=`Species`)) + geom_line()
 ```
+
+# Citation
+
+K. Van Cleve, F.S. Chapin, R.W. Ruess, and Bonanza Creek LTER. 2019. Bonanza Creek LTER: Yearly Seedfall Summary from 1985 to Present in the Bonanza Creek Experimental Forest near Fairbanks, Alaska ver 28. Environmental Data Initiative. https://doi.org/10.6073/pasta/8ecb7a0eca30148914bcf9cc1472d327 (Accessed 2021-03-08).
+
+
+# How we processed the raw data
+
+See "bnz_seedfall.R"
