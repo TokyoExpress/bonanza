@@ -7,6 +7,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+The Northeast U.S. Shelf (NES) Long-Term Ecological Research (LTER) project integrates observations, experiments, and models to understand and predict how planktonic food webs are changing, and how those changes impact the productivity of higher trophic levels. These data represent the diet composition of small pelagic fishes across the Northeast U.S. Continental Shelf.
+
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -22,6 +24,8 @@ library(tidyverse)
 
 diet <- na.omit(bonanza::nes_diet) %>%
   filter(preyCount < 50000)
+
+diet$logPrey <- log(diet$preyCount)
 ```
 
 ## Initial Plots
@@ -30,12 +34,14 @@ Creating scatterplots of preyCount versus two predictors of interest:
 
 ```{r plots, fig.width=7, fig.height=5}
 
-ggplot(data = diet, aes(x = forkLength, y = preyCount)) +
+ggplot(data = diet, aes(x = forkLength, y = logPrey)) +
  		 geom_point()
 
-ggplot(data = diet, aes(x = average_depth, y = preyCount)) +
+ggplot(data = diet, aes(x = average_depth, y = logPrey)) +
  		 geom_point()
 ```
+
+While a majority of the points hover around a very small number, some trends are visible.
 
 ## Grouped Histograms
 
@@ -51,7 +57,7 @@ sub <- diet %>%
 Creating histogram of preyCount, grouped by predator species:
 
 ```{r plot2, fig.width=7, fig.height=5}
-ggplot(sub, aes(x = preyCount)) +
+ggplot(sub, aes(x = logPrey)) +
   geom_histogram(aes(color = vernacularName, fill = vernacularName),
                  position = "identity", bins = 10, alpha=I(0.3)) +
   scale_color_manual(values = c("#00AFBB", "#E7B800", "#FADB7D", "#E38566", "#F68FFF")) +
@@ -72,6 +78,18 @@ ggplot(sub, aes(x = preyCount)) +
   scale_color_manual(values = c("#00AFBB", "#E7B800", "#FADB7D", "#E38566", "#F68FFF")) +
   scale_fill_manual(values = c("#00AFBB", "#E7B800", "#FADB7D", "#E38566", "#F68FFF")) +
   ggtitle("Calanoida Prey Count by Predator Species")
+
+```
+
+```{r plot4, fig.width=7, fig.height=5}
+
+ale <- diet %>%
+  filter(vernacularName == "Alewife")
+
+ggplot(ale, aes(x = preyCount)) +
+  geom_histogram(aes(color = scientificName_preyTaxon, fill = scientificName_preyTaxon),
+                 position = "identity", bins = 10, alpha=I(0.3)) +
+  ggtitle("Alewife Diet Observation by Prey Species")
 
 ```
 
