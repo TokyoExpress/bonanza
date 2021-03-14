@@ -93,6 +93,20 @@ ggplot(ale, aes(x = preyCount)) +
 
 ```
 
+## Network Analysis
+
+Loading igraph package:
+
+```{r plot5}
+
+library(igraph)
+
+g = graph_from_data_frame(diet, directed = TRUE, vertices = NULL)
+
+print(g)
+
+```
+
 ### Citation
 
 Suca, J.J. 2019. Diet Composition for Small Pelagic Fishes across the Northeast U.S. Continental Shelf from 2013-2015 ver 2. Environmental Data Initiative. https://doi.org/10.6073/pasta/4c1ef62808519d46b14a8493616e1580 (Accessed 2021-03-07).
