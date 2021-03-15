@@ -72,7 +72,7 @@ Choosing another species:
 sub <- diet %>%
   filter(scientificName_preyTaxon == "Calanoida")
 
-ggplot(sub, aes(x = preyCount)) +
+ggplot(sub, aes(x = logPrey)) +
   geom_histogram(aes(color = vernacularName, fill = vernacularName),
                  position = "identity", bins = 10, alpha=I(0.3)) +
   scale_color_manual(values = c("#00AFBB", "#E7B800", "#FADB7D", "#E38566", "#F68FFF")) +
@@ -86,7 +86,7 @@ ggplot(sub, aes(x = preyCount)) +
 ale <- diet %>%
   filter(vernacularName == "Alewife")
 
-ggplot(ale, aes(x = preyCount)) +
+ggplot(ale, aes(x = logPrey)) +
   geom_histogram(aes(color = scientificName_preyTaxon, fill = scientificName_preyTaxon),
                  position = "identity", bins = 10, alpha=I(0.3)) +
   ggtitle("Alewife Diet Observation by Prey Species")
