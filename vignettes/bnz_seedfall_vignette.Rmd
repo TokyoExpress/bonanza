@@ -14,6 +14,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+The Yearly Seedfall Summary dataset includes seed counts and germination rates of Picea glauca, Picea mariana, Betula neoalaskana (papyrifera), Picea mariana, Larix larciana, Alnus crispa, and Alnus tenuifolia. Seeds are collected in .25m^2 trays located on the forest floor of the a selected set of LTER successional sites.
+
 ## Loading Data and Initial Plot
 ```{r setup, fig.width=7}
 library(bonanza)
@@ -23,12 +25,18 @@ seedfall <- bonanza::bnz_seedfall %>%
           filter(!is.null(`#Seeds`))
 
 seedfall$`#Seeds` <- as.numeric(seedfall$`#Seeds`)
+seedfall$`logSeeds` <- log(seedfall$`#Seeds`)
 seedfall$`#Seeds /m2` <- as.numeric(seedfall$`#Seeds /m2`)
+
+ggplot(seedfall, aes(x = `logSeeds`)) +
+  geom_histogram(bins = 10)
 
 ggplot(seedfall, aes(x = `#Seeds /m2`)) +
   geom_histogram(bins = 10)
 
 ```
+
+The histograms of the raw and transformed reveal a skewed distribution for the seed count that is fixed by a log transformation. "#Seeds /m2", which represents the sum of the seeds divided by the tray area, also seems to gravitate towards extremely small values.
 
 ## Extracting time series for specific sites:
 
@@ -46,6 +54,8 @@ up1a <- seedfall %>%
 
 ggplot(data = up1a, aes(x = `Seed Year`, y = `#Seeds`, group=`Species`, color=`Species`)) + geom_line()
 ```
+
+The time series indicates that the seed count for the PICGLA site has consistently been decreasing since before 1960, similar to the BETNEO site, which has also been decreasing since its first recording in the 1980s. The ALNVIR site's seed count has been steadily increasing, however, which may give insight as to how the different site's soil and weather conditions may affect the growth of vegetation.
 
 # Citation
 

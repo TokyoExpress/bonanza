@@ -41,7 +41,7 @@ ggplot(data = diet, aes(x = average_depth, y = logPrey)) +
  		 geom_point()
 ```
 
-While a majority of the points hover around a very small number, some trends are visible.
+While a majority of the points hover around a very small number, some trends are visible. Using the log transformation, we are able to see that the prey count seems to decrease as the average sampling depth decreases.
 
 ## Grouped Histograms
 
@@ -93,7 +93,9 @@ ggplot(ale, aes(x = logPrey)) +
 
 ```
 
-## Network Analysis
+It is clear that Alewife prefers certain species of prey, such as Parathemisto and Calanoida, which exhibit either high frequency of appearance or a high count. Using these two forms of grouped histograms is useful for determining predator diet preferences and the overall structure of the food web.
+
+## Network Analysis (In Progress)
 
 Loading igraph package:
 

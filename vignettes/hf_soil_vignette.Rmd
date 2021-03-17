@@ -14,6 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
+These data represent baseline soil bulk density and total soil carbon and nitrogen concentrations for the three grazing treatments at Harvard Farm: hay (no grazing), rotational grazing, and intensive grazing. These samples were collected at the beginning of the study, so any differences across plots or treatments are due to inherent soil variability at the site rather than the treatments themselves.
 
 ### Load data, change plot number to factor:
 ```{r setup}
@@ -24,6 +25,8 @@ soil <- bonanza::hf_soil
 soil$plot.num <- as.factor(soil$plot.num)
 
 ```
+
+These data were collected to establish the starting conditions with which to compare potential treatment effects at later sampling dates. We can then produce graphs to visualize the levels.
 
 
 ### Plot nitrogen and carbon levels, grouped by depth and plot number:
@@ -37,6 +40,8 @@ ggplot(soil, aes(fill=depth, y=c.per, x=plot.num)) +
     geom_bar(position="dodge", stat="identity") + 
     labs(y = "Percentage of Total Organic Carbon", x = "Plot Number")
 ```
+
+The grouped bar plots reveal that the concentration of nitrogen and carbon in the soil decreases as the depth increases, which is in line with the conditions necessary for the experiments.
 
 ### Citation
 
