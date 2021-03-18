@@ -11,7 +11,7 @@ LazyData: true
 URL: https://github.com/TokyoExpress/bonanza
 BugReports: https://github.com/TokyoExpress/bonanza/issues
 RoxygenNote: 7.1.1
-Imports: crayon
+Imports: crayon, igraph
 Remotes: hadley/emo
 Suggests: testthat,
     knitr,
